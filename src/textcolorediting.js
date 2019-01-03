@@ -43,9 +43,6 @@ export default class TextColorEditing extends Plugin {
         const options = editor.config.get('textColor.options');
         const definition = _buildDefinition(options);
 
-        console.log('options', options);
-        console.log('definition', definition);
-
         // Set-up the two-way conversion.
         editor.conversion.attributeToElement(definition);
 
@@ -53,16 +50,14 @@ export default class TextColorEditing extends Plugin {
             .add(upcastElementToAttribute({
                 view: {
                     name: 'span',
-                    attributes: {
-                        title: 'color'
-                    }
+                    styles: {
+                        'color': /[\s\S]+/
+                    },
                 },
                 model: {
                     key: TEXT_COLOR,
                     value: viewElement => {
                         const color = viewElement.getStyle('color');
-
-                        console.log('color', color);
 
                         if (!color) {
                             return null
@@ -76,8 +71,6 @@ export default class TextColorEditing extends Plugin {
                             const regEx = /^rgb\((\d*),\s?(\d*),\s?(\d*)\)$/;
                             let rgb = regEx.exec(color);
 
-                            console.log('rgb', rgb);
-
                             if (!rgb) {
                                 return null;
                             }
@@ -85,17 +78,11 @@ export default class TextColorEditing extends Plugin {
                             hexColor = toHex(rgb[1], rgb[2], rgb[3]);
                         }
 
-                        console.log('hexColor', hexColor);
-
-                        let best = options.closest(toHex(rgb[1], rgb[2], rgb[3]));
-
-                        console.log('best', best);
+                        let best = options.closest(hexColor);
 
                         if (!best) {
                             return null;
                         }
-
-                        console.log('best.model', best.model);
 
                         return best.model;
                     }

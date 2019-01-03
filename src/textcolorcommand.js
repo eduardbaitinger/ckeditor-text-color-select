@@ -30,13 +30,8 @@ export default class TextColorCommand extends Command {
 
         const color = (options.value === 'rgba(0,0,0,0)' ? null : options.value);
 
-        console.log('execute - color', color);
-
         model.change( writer => {
             const ranges = model.schema.getValidRanges( selection.getRanges(), 'textColor' );
-
-            console.log('execute - change');
-            console.log('execute - selection.isCollapsed', selection.isCollapsed);
 
             if ( selection.isCollapsed ) {
                 const position = selection.getFirstPosition();
