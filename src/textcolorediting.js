@@ -43,6 +43,9 @@ export default class TextColorEditing extends Plugin {
         const options = editor.config.get('textColor.options');
         const definition = _buildDefinition(options);
 
+        console.log('options', options);
+        console.log('definition', definition);
+
         // Set-up the two-way conversion.
         editor.conversion.attributeToElement(definition);
 
@@ -59,21 +62,40 @@ export default class TextColorEditing extends Plugin {
                     value: viewElement => {
                         const color = viewElement.getStyle('color');
 
+                        console.log('color', color);
+
                         if (!color) {
                             return null
                         }
 
                         // determine closest color
-                        const regEx = /^rgb\((\d*),\s?(\d*),\s?(\d*)\)$/;
-                        let rgb = regEx.exec(color);
-                        if (!rgb) {
-                            return null;
+                        let hexColor;
+                        if(color.startsWith('#')) {
+                            hexColor = color;
+                        } else {
+                            const regEx = /^rgb\((\d*),\s?(\d*),\s?(\d*)\)$/;
+                            let rgb = regEx.exec(color);
+
+                            console.log('rgb', rgb);
+
+                            if (!rgb) {
+                                return null;
+                            }
+
+                            hexColor = toHex(rgb[1], rgb[2], rgb[3]);
                         }
+
+                        console.log('hexColor', hexColor);
+
                         let best = options.closest(toHex(rgb[1], rgb[2], rgb[3]));
+
+                        console.log('best', best);
 
                         if (!best) {
                             return null;
                         }
+
+                        console.log('best.model', best.model);
 
                         return best.model;
                     }
