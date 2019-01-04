@@ -54,7 +54,7 @@ const colors = [
         color: '#A52A2A',
     },
     {
-        model: 'burlyweood',
+        model: 'burlywood',
         title: 'Burly Wood',
         color: '#DEB887',
     },
