@@ -4,6 +4,11 @@ const colors = [
         color: '#000000',
     },
     {
+        model: 'servityblue',
+        title: 'Servity Blue',
+        color: '#3468bf',
+    },
+    {
         model: 'aliceblue',
         title: 'Alice Blue',
         color: '#F0F8FF',
