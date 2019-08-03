@@ -4,6 +4,7 @@ const colors = [
         color: '#000000',
     },
     {
+		model: '#3468bf',
         title: 'Servity Blue',
         color: '#3468bf',
     },
